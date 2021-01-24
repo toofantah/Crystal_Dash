@@ -428,7 +428,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1204561283817952
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +791,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1259899962318830
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +890,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1272540403780838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,7 +1592,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1394226248284924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,7 +1823,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1494359954351070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,7 +2156,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1591848684340028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2255,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1614593919270358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,7 +2690,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1730145456173054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,7 +2789,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1736860573696952
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,7 +3648,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5598858
+  m_Radius: 1
 --- !u!1 &1945522643265214
 GameObject:
   m_ObjectHideFlags: 0
