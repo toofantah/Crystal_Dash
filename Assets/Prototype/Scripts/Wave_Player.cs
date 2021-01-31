@@ -15,7 +15,8 @@ public class Wave_Player : MonoBehaviour
     public AudioClip ItemClip;
     AudioSource source;
 
-
+    //Added 
+    
 
 
 
@@ -30,7 +31,12 @@ public class Wave_Player : MonoBehaviour
     public int YdecelerationForce;
     public int YspeedMax;
     float hueValue;
-    bool isDead = false;
+    public bool isDead = false;
+
+    ///Added
+    Vector2 savePlPosition;
+    Quaternion savePlRotation;
+    Vector2 savePlRbVelocity;
 
     void Start()
     {
@@ -48,19 +54,21 @@ public class Wave_Player : MonoBehaviour
     void Update()
     {
         if (isDead) return;
+        else
         MovePlayer();
+
     }
 
 
     void MovePlayer()
     {
-
+        Debug.Log("MovePlayers");
         Vector2 pos = transform.position;
         pos.x = Mathf.Cos(angle) * (GameManagerObj.GetComponent<Wave_DisplayManager>().RIGHT * 0.9f);
         pos.y += 0.002f;
         transform.position = pos;
         angle += Time.deltaTime * Xspeed;
-
+        
 
         if (Input.GetMouseButton(0))
         {
@@ -93,18 +101,31 @@ public class Wave_Player : MonoBehaviour
             SetBackgroundColor();
 
             GameManagerObj.GetComponent<Wave_GameManager>().addScore();
-
+            
             source.PlayOneShot(ItemClip, 1);
         }
 
-        if (other.gameObject.tag == "Obstacle" && isDead == false)
+        /*if (other.gameObject.tag == "Obstacle" && isDead == false)
         {
             isDead = true;
+            SavePlPosition();
+            
 
             Destroy(Instantiate(fx_Dead, transform.position, Quaternion.identity), 0.5f);
             StopPlayer();
             GameManagerObj.GetComponent<Wave_GameManager>().Gameover();
+            ///GameManagerObj.GetComponent<Wave_GameManager>().Revive();
+            source.PlayOneShot(DeadClip, 1);
+        }*/
 
+        if (other.gameObject.tag == "Obstacle" && isDead == false)
+        {
+            isDead = true;
+            other.gameObject.SetActive(false);
+            Destroy(Instantiate(fx_Dead, transform.position, Quaternion.identity), 0.5f);
+            StopPlayer();
+            GameManagerObj.GetComponent<Wave_GameManager>().Gameover();
+            ///GameManagerObj.GetComponent<Wave_GameManager>().Revive();
             source.PlayOneShot(DeadClip, 1);
         }
     }
@@ -117,6 +138,18 @@ public class Wave_Player : MonoBehaviour
         rb.isKinematic = true;
     }
 
+    public void RestartPlayPlayer()
+    {
+        isDead = false;
+        rb.velocity = new Vector2(0, 0);
+        rb.isKinematic = false;
+    }
+    void SavePlPosition()
+    {
+        savePlRbVelocity = rb.velocity;
+        savePlPosition = transform.position;
+        savePlRotation = transform.rotation;
+    }
 
     void SetBackgroundColor()
     {

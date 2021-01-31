@@ -11,6 +11,9 @@ public class Wave_GameManager : MonoBehaviour
     int score = 0;
     public Text CurrentScoreText;
     public Text BestScoreText;
+    public Text LastScoreLabelText;
+    public Text LastScoreText;
+    
 
     public GameObject GameOverPanel;
     public GameObject GameOverEffectPanel;
@@ -20,8 +23,11 @@ public class Wave_GameManager : MonoBehaviour
     public GameObject StartFadeInObj;
 
     static int PlayCount;
-
-
+    
+    ///Added
+    public GameObject playerGO;
+    Transform lastPlayerPos;
+    
     void Awake()
     {
         Application.targetFrameRate = 60;
@@ -88,9 +94,35 @@ public class Wave_GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void Revive()
+    {
+        
+
+        //Actions on player to revice
+        GameOverPanel.SetActive(false);
+        lastPlayerPos = playerGO.transform;
+        ///FindObjectOfType<Wave_Player>().isDead = false;
+        Time.timeScale = 1f;
+        FindObjectOfType<Wave_Player>().RestartPlayPlayer();
+        ReviveScoreSetup();
+
+
+    }
 
     public int GetScore()
     {
         return score;
     }
+
+    void ReviveScoreSetup()
+    {
+        //Set Score text true nd all actions about score 
+        LastScoreText.gameObject.SetActive(true);
+        LastScoreLabelText.gameObject.SetActive(true);
+
+        LastScoreText.text = score.ToString();
+
+        score = 0;
+        CurrentScoreText.text = score.ToString();
+    }    
 }
