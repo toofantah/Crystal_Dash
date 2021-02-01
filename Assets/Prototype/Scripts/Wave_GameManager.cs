@@ -122,7 +122,7 @@ public class Wave_GameManager : MonoBehaviour
 
         LastScoreText.text = score.ToString();
 
-        score = 0;
+        //score = 0; //We uncomment this line if we want to revive with a score of 0 instead of contitnue the previous scores   
         CurrentScoreText.text = score.ToString();
     }    
 }
