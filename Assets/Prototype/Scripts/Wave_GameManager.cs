@@ -94,7 +94,7 @@ public class Wave_GameManager : MonoBehaviour
     IEnumerator GameoverCoroutine()
     {
         
-        
+        ReviveScoreSetup();
         GameOverEffectPanel.SetActive(true);
         Time.timeScale = 0.1f;
         yield return new WaitForSecondsRealtime(0.5f);
@@ -111,12 +111,9 @@ public class Wave_GameManager : MonoBehaviour
 
     public void Restart()
     {
-
         GameOverPanel.SetActive(false);
-        ///ReviveScoreSetup();
         readyReplayRestartObj.SetActive(true);
         StopAllCoroutines();
-
         Time.timeScale = 0.3f;
         StartCoroutine(RestartAfterLosing(secsToWaitAfterLoosingAlls));
         //Some count down animations? 
@@ -206,7 +203,7 @@ public class Wave_GameManager : MonoBehaviour
         readyReplayRestartObj.SetActive(true);
         yield return new WaitForSeconds(secsToWaitAfterLoosingAlls);
         Time.timeScale = 1f;
-        ReviveScoreSetup();
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }   
 
@@ -223,6 +220,6 @@ public class Wave_GameManager : MonoBehaviour
         LivesScoreLabelText.gameObject.SetActive(false);
         LivesScoreText.text = GlobalLives.ToString();
         readyReplayRevivesObj.SetActive(false);
-        ReviveScoreSetup();
+        
     }
 }
