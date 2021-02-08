@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class Wave_GameManager : MonoBehaviour
 {
 
+    public static int isAdsPurchased=0;
     int score = 0;
     public Text CurrentScoreText;
     public Text BestScoreText;
@@ -47,6 +48,7 @@ public class Wave_GameManager : MonoBehaviour
 
 
         CurrentScoreText.text = "0";
+        isAdsPurchased = PlayerPrefs.GetInt("isAdsPurchased", 0);
         BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
         StartCoroutine(FadeIn());
     }

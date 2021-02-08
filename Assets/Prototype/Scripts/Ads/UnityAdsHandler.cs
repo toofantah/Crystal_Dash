@@ -2,12 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.Purchasing;
 
 public class UnityAdsHandler : MonoBehaviour
 {
 
     [SerializeField] string googlePlay_ID="4001611";
     bool testMode = true;
+
+    bool showAds=true;
+
+
+    public void Awake()
+    {
+        //check if ads are purchased
+        Wave_GameManager.isAdsPurchased = PlayerPrefs.GetInt("isAdsPurchased", 0);
+
+        if (Wave_GameManager.isAdsPurchased ==0)
+        {
+            showAds = true;
+        }
+        else if (Wave_GameManager.isAdsPurchased == 1)
+        {
+            showAds = false;
+        }
+    }
+    //IAP
+    private string removeAdsIAPIDs="com.lynxgamez.crystaldash.removeaddsbutton";
 
     void Start()
     {
@@ -17,11 +38,31 @@ public class UnityAdsHandler : MonoBehaviour
 
     public void DisplayInteratialAds()
     {
-        Advertisement.Show();
+        if (showAds)
+            Advertisement.Show();
+        else
+            return;    
     }
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+
+    public void OnPurchaseComplere(Product product)
+    {
+        if(product.definition.id==removeAdsIAPIDs)
+        {
+            PlayerPrefs.SetInt("isAdsPurchased", 1);
+            Debug.Log("IAP purchased"+"+ 20 lives offer! :D, thank you for your purchases!");
+            GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives = GameObject.FindObjectOfType<Wave_GameManager>().MaxGlobalLives + 20;
+            GameObject.FindObjectOfType<Wave_GameManager>().checkGlobalLives();
+        }
+    }
+
+    public void OnPurchaseFailed(Product product, PurchaseFailureReason reason)
+    {
+        Debug.Log("purchase of prodyuct:" + product + ":  failed because of: " + reason);
     }
 }
