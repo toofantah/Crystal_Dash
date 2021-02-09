@@ -16,16 +16,7 @@ public class UnityAdsHandler : MonoBehaviour
     public void Awake()
     {
         //check if ads are purchased
-        Wave_GameManager.isAdsPurchased = PlayerPrefs.GetInt("isAdsPurchased", 0);
-
-        if (Wave_GameManager.isAdsPurchased ==0)
-        {
-            showAds = true;
-        }
-        else if (Wave_GameManager.isAdsPurchased == 1)
-        {
-            showAds = false;
-        }
+        CheckShowAds();
     }
     //IAP
     private string removeAdsIAPIDs="com.lynxgamez.crystaldash.removeaddsbutton";
@@ -57,7 +48,14 @@ public class UnityAdsHandler : MonoBehaviour
             PlayerPrefs.SetInt("isAdsPurchased", 1);
             Debug.Log("IAP purchased"+"+ 20 lives offer! :D, thank you for your purchases!");
             GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives = GameObject.FindObjectOfType<Wave_GameManager>().MaxGlobalLives + 20;
-            GameObject.FindObjectOfType<Wave_GameManager>().checkGlobalLives();
+            PlayerPrefs.SetInt("isAdsPurchased", 1);
+            ///GameObject.FindObjectOfType<Wave_GameManager>().CheckGlobalLives();
+            GameObject.FindObjectOfType<Wave_GameManager>().CheckAdsRemovePurchases();
+            GameObject.FindObjectOfType<Wave_GameManager>().CheckThankYouForPurchasesRemovesAds();
+            CheckShowAds();
+            //GameObject.FindObjectOfType<Wave_GameManager>().isAdsPurchased = true;
+            //PlayerPrefs.SetInt("isRemoveAdsPurchased", 1);
+            //GameObject.FindObjectOfType<Wave_GameManager>().isAdsPurchased();
         }
     }
 
@@ -65,4 +63,24 @@ public class UnityAdsHandler : MonoBehaviour
     {
         Debug.Log("purchase of prodyuct:" + product + ":  failed because of: " + reason);
     }
+    
+
+
+
+
+
+    public void CheckShowAds()
+    {
+        Wave_GameManager.isAdsPurchased = PlayerPrefs.GetInt("isAdsPurchased", 0);
+
+        if (Wave_GameManager.isAdsPurchased == 0)
+        {
+            showAds = true;
+        }
+        else if (Wave_GameManager.isAdsPurchased == 1)
+        {
+            showAds = false;
+        }
+    }
+
 }

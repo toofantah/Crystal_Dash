@@ -17,15 +17,19 @@ public class Wave_GameManager : MonoBehaviour
     public Text LivesScoreLabelText;
     public Text LivesScoreText;
 
+    ///public bool isRemoveAdsPurchased = false;
+
     public int MaxGlobalLives;
     public int GlobalLives; //newScripts/?.//// 
     public float secsToWaitAfterLoosingAlls;
     public float secsToWaitAfterLoosingToReplays;
     public GameObject ReviveButtonGO;
-
+    GameObject ReviveButtonSubTitleTextGO;
     public GameObject GameOverPanel;
     public GameObject GameOverEffectPanel;
     public GameObject GameOverEffectRestartPanel;
+    public GameObject RemoveAdsButtonsGO;
+    public GameObject ThanksForPurchasingRemoveAdsPanelGO;
 
     public GameObject touchToMoveTextObj;
     public GameObject readyReplayRevivesObj;
@@ -33,6 +37,7 @@ public class Wave_GameManager : MonoBehaviour
 
     public GameObject StartFadeInObj;
 
+    public static Wave_GameManager GameManagerInstances;
     static int PlayCount;
     
     ///Added
@@ -41,16 +46,39 @@ public class Wave_GameManager : MonoBehaviour
     
     void Awake()
     {
-        Application.targetFrameRate = 60;
 
+        /*if (GameManagerInstances)
+        {
+            DontDestroyOnLoad(this);
+        }
+        else
+            Destroy(this);
+
+        */
+
+
+
+
+
+        #region SETUP
+        ReviveButtonSubTitleTextGO = ReviveButtonGO.transform.GetChild(1).gameObject;
+
+        /*/PlayerPrefs.DeleteAll();*/
+        ThanksForPurchasingRemoveAdsPanelGO.SetActive(false);
+        Application.targetFrameRate = 60;
+        PlayerPrefs.GetInt("Lives", GlobalLives);
         GlobalLives = MaxGlobalLives;
         Time.timeScale = 1.0f;
-
-
         CurrentScoreText.text = "0";
+
         isAdsPurchased = PlayerPrefs.GetInt("isAdsPurchased", 0);
+        CheckAdsRemovePurchases();
+
         BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
         StartCoroutine(FadeIn());
+        #endregion
+
+
     }
 
     void Update()
@@ -89,19 +117,19 @@ public class Wave_GameManager : MonoBehaviour
     {
         
         StartCoroutine(GameoverCoroutine());
-        checkGlobalLives();
+        CheckGlobalLives();
     }
 
 
     IEnumerator GameoverCoroutine()
     {
-        
-        
+
+        CheckAdsRemovePurchases();
         GameOverEffectPanel.SetActive(true);
         Time.timeScale = 0.1f;
         yield return new WaitForSecondsRealtime(0.5f);
         GameOverPanel.SetActive(true);
-
+        
         ///checkGlobalLives();
         LivesScoreText.gameObject.SetActive(true);
         LivesScoreLabelText.gameObject.SetActive(true);
@@ -113,7 +141,7 @@ public class Wave_GameManager : MonoBehaviour
 
     public void Restart()
     {
-
+        //CheckGlobalLives();
         GameOverPanel.SetActive(false);
         ///ReviveScoreSetup();
         readyReplayRestartObj.SetActive(true);
@@ -139,6 +167,7 @@ public class Wave_GameManager : MonoBehaviour
         readyReplayRevivesObj.SetActive(true);
         
         StopAllCoroutines();
+        ///..CheckGlobalLives();
         StartCoroutine(WaitToReplays(secsToWaitAfterLoosingToReplays));
         
 
@@ -165,17 +194,20 @@ public class Wave_GameManager : MonoBehaviour
 
 
     //Function check global lives
-    public void checkGlobalLives()
+    public void CheckGlobalLives()
     {
         if (GlobalLives <= 1)
         {
+            
             GlobalLives = 0;
+            PlayerPrefs.SetInt("Lives", GlobalLives);
             ReviveButtonGO.SetActive(false);
             LivesScoreText.color = Color.yellow;
         }
         else
         {
             GlobalLives--;
+            PlayerPrefs.SetInt("Lives", GlobalLives);
             ReviveButtonGO.SetActive(true);
             LivesScoreText.color = Color.grey;
         }
@@ -186,6 +218,8 @@ public class Wave_GameManager : MonoBehaviour
     //Function to wait x sec after you loose all your revuces
     IEnumerator RestartAfterLosing(float secsToWaitAfterLoosingAlls)
     {
+        CheckGlobalLives();
+
         //Some count down animations? 
         //Watch a video ads?
         //Get extra livess?
@@ -200,7 +234,7 @@ public class Wave_GameManager : MonoBehaviour
         GlobalLives = MaxGlobalLives;
         LivesScoreText.gameObject.SetActive(false);
         LivesScoreLabelText.gameObject.SetActive(false);
-        checkGlobalLives();
+        
         LivesScoreText.text = GlobalLives.ToString();
         ///////////IMPORTANTSs Time.timeScale = 0.3f;
         ///yield return new WaitForSeconds(1);
@@ -208,7 +242,7 @@ public class Wave_GameManager : MonoBehaviour
         readyReplayRestartObj.SetActive(true);
         yield return new WaitForSeconds(secsToWaitAfterLoosingAlls);
         Time.timeScale = 1f;
-        ReviveScoreSetup();
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }   
 
@@ -216,6 +250,7 @@ public class Wave_GameManager : MonoBehaviour
     //Function to wait x sec after you restart *counts downs)s
     IEnumerator WaitToReplays(float secsToWaitAfterLoosingToReplays)
     {
+        ReviveScoreSetup();
         yield return new WaitForSeconds(secsToWaitAfterLoosingToReplays);
         FindObjectOfType<Wave_Player>().RestartPlayPlayer();
         
@@ -225,6 +260,32 @@ public class Wave_GameManager : MonoBehaviour
         LivesScoreLabelText.gameObject.SetActive(false);
         LivesScoreText.text = GlobalLives.ToString();
         readyReplayRevivesObj.SetActive(false);
-        ReviveScoreSetup();
+       
+    }
+
+    public void CheckAdsRemovePurchases()
+    {
+        
+        if (isAdsPurchased==1)
+        {
+            ReviveButtonSubTitleTextGO.SetActive(false);
+            ReviveButtonSubTitleTextGO.GetComponent<Text>().alignment = (TextAnchor)TextAlignment.Center;
+            RemoveAdsButtonsGO.SetActive(false);
+
+        }
+        else 
+            if(isAdsPurchased==0)
+        {
+            ReviveButtonSubTitleTextGO.SetActive(true);
+            
+            RemoveAdsButtonsGO.SetActive(true);
+        }
+        
+    }
+
+    public void CheckThankYouForPurchasesRemovesAds()
+    {
+
+        ThanksForPurchasingRemoveAdsPanelGO.SetActive(true);
     }
 }
