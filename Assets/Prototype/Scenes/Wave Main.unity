@@ -194,7 +194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: REVIVES
+  m_Text: LIVES
 --- !u!222 &36027875
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2508,7 +2508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21288884, y: 0.1314375}
   m_AnchorMax: {x: 0.78700006, y: 0.34612504}
-  m_AnchoredPosition: {x: 0.000091552734, y: 7.5999756}
+  m_AnchoredPosition: {x: 0, y: 7.6000977}
   m_SizeDelta: {x: 10.400024, y: 7.1657715}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1497590223
@@ -3463,7 +3463,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'YOU HAVE A GIFT: 20 REVIVES!
+  m_Text: 'YOU HAVE A GIFT: 20 LIVES!
 
 
 

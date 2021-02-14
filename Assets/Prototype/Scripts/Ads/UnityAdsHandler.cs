@@ -48,6 +48,7 @@ public class UnityAdsHandler : MonoBehaviour
             PlayerPrefs.SetInt("isAdsPurchased", 1);
             Debug.Log("IAP purchased"+"+ 20 lives offer! :D, thank you for your purchases!");
             GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives = GameObject.FindObjectOfType<Wave_GameManager>().MaxGlobalLives + 20;
+            PlayerPrefs.SetInt("Lives", GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives);
             PlayerPrefs.SetInt("isAdsPurchased", 1);
             ///GameObject.FindObjectOfType<Wave_GameManager>().CheckGlobalLives();
             GameObject.FindObjectOfType<Wave_GameManager>().CheckAdsRemovePurchases();
