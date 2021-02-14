@@ -46,7 +46,7 @@ public class Wave_GameManager : MonoBehaviour
     
     void Awake()
     {
-
+        
         /*if (GameManagerInstances)
         {
             DontDestroyOnLoad(this);
@@ -67,17 +67,20 @@ public class Wave_GameManager : MonoBehaviour
         ThanksForPurchasingRemoveAdsPanelGO.SetActive(false);
         Application.targetFrameRate = 60;
         PlayerPrefs.GetInt("Lives", GlobalLives);
+        
+        LastScoreText.text = PlayerPrefs.GetInt("LastScore", score).ToString();
         GlobalLives = MaxGlobalLives;
         Time.timeScale = 1.0f;
         CurrentScoreText.text = "0";
-
+        
         isAdsPurchased = PlayerPrefs.GetInt("isAdsPurchased", 0);
         CheckAdsRemovePurchases();
 
         BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
         StartCoroutine(FadeIn());
         #endregion
-
+        ReviveScoreSetup();
+        
 
     }
 
@@ -123,7 +126,7 @@ public class Wave_GameManager : MonoBehaviour
 
     IEnumerator GameoverCoroutine()
     {
-
+        PlayerPrefs.SetInt("LastScore", score);
         CheckAdsRemovePurchases();
         GameOverEffectPanel.SetActive(true);
         Time.timeScale = 0.1f;
@@ -158,7 +161,7 @@ public class Wave_GameManager : MonoBehaviour
     public void Revive()
     {
 
-        
+        PlayerPrefs.SetInt("LastScore", score);
         //Actions on player to revice
         GameOverPanel.SetActive(false);
         lastPlayerPos = playerGO.transform;
@@ -169,8 +172,8 @@ public class Wave_GameManager : MonoBehaviour
         StopAllCoroutines();
         ///..CheckGlobalLives();
         StartCoroutine(WaitToReplays(secsToWaitAfterLoosingToReplays));
-        
 
+        
     }
 
     public int GetScore()
@@ -180,15 +183,21 @@ public class Wave_GameManager : MonoBehaviour
 
     void ReviveScoreSetup()
     {
-        //Set Score text true nd all actions about score 
-        LastScoreText.gameObject.SetActive(true);
+        if(PlayerPrefs.GetInt("LastScore",score)>0)
+        {
+            PlayerPrefs.GetInt("LastScore", score);
+            
+            //Set Score text true nd all actions about score 
+            LastScoreText.gameObject.SetActive(true);
+
+            LastScoreLabelText.gameObject.SetActive(true);
+
+            LastScoreText.text = PlayerPrefs.GetInt("LastScore", score).ToString();
+
+            //score = 0; //We uncomment this line if we want to revive with a score of 0 instead of contitnue the previous scores   
+            CurrentScoreText.text = score.ToString();
+        }
         
-        LastScoreLabelText.gameObject.SetActive(true);
-        
-        LastScoreText.text = score.ToString();
-        
-        //score = 0; //We uncomment this line if we want to revive with a score of 0 instead of contitnue the previous scores   
-        CurrentScoreText.text = score.ToString();
        
     }    
 
@@ -225,7 +234,7 @@ public class Wave_GameManager : MonoBehaviour
         //Get extra livess?
         ///stetdss
         Time.timeScale = 0.3f;
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         FadeIn();
         Time.timeScale = 1f;
         
@@ -238,7 +247,7 @@ public class Wave_GameManager : MonoBehaviour
         LivesScoreText.text = GlobalLives.ToString();
         ///////////IMPORTANTSs Time.timeScale = 0.3f;
         ///yield return new WaitForSeconds(1);
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         readyReplayRestartObj.SetActive(true);
         yield return new WaitForSeconds(secsToWaitAfterLoosingAlls);
         Time.timeScale = 1f;
