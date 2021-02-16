@@ -8,7 +8,7 @@ public class UnityAdsHandler : MonoBehaviour
 {
 
     [SerializeField] string googlePlay_ID="4001611";
-    bool testMode = true;
+    bool testMode = false;
 
     bool showAds=true;
 
