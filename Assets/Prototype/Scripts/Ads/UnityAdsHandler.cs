@@ -19,11 +19,12 @@ public class UnityAdsHandler : MonoBehaviour
         CheckShowAds();
     }
     //IAP
-    private string removeAdsIAPIDs="com.lynxgamez.crystaldash.removeaddsbutton";
+    private string removeAdsIAPIDs= "com.lynxgamez.crystaldash.removeadsbutton";
 
     void Start()
     {
         Advertisement.Initialize(googlePlay_ID, testMode);
+        
     }
      
 
@@ -41,7 +42,7 @@ public class UnityAdsHandler : MonoBehaviour
     }
 
 
-    public void OnPurchaseComplere(Product product)
+    public void OnPurchaseComplete(Product product)
     {
         if(product.definition.id==removeAdsIAPIDs)
         {

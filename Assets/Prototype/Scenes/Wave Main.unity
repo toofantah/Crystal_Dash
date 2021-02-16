@@ -1092,15 +1092,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productId: com.lynxgamez.crystaldash.removeaddsbutton
+  productId: com.lynxgamez.crystaldash.removeadsbutton
   buttonType: 0
   consumePurchase: 1
   onPurchaseComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 208413290}
+        m_TargetAssemblyTypeName: UnityAdsHandler, Assembly-CSharp
+        m_MethodName: OnPurchaseComplete
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPurchaseFailed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 208413290}
+        m_TargetAssemblyTypeName: UnityAdsHandler, Assembly-CSharp
+        m_MethodName: OnPurchaseFailed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   titleText: {fileID: 758161336}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -1532,7 +1556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &899554241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1585,7 +1609,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '-'
+  m_Text: --
 --- !u!222 &899554243
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1907,7 +1931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1241428398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2435,7 +2459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productId: com.lynxgamez.crystaldash.removeaddsbutton
+  productId: com.lynxgamez.crystaldash.removeadsbutton
   buttonType: 0
   consumePurchase: 1
   onPurchaseComplete:
@@ -2443,7 +2467,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 208413290}
         m_TargetAssemblyTypeName: UnityAdsHandler, Assembly-CSharp
-        m_MethodName: OnPurchaseComplere
+        m_MethodName: OnPurchaseComplete
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
