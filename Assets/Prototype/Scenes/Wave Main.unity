@@ -159,7 +159,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 99.94922, y: 41.19922}
-  m_SizeDelta: {x: 290.09747, y: 119.599976}
+  m_SizeDelta: {x: 262.12, y: 119.6}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &36027874
 MonoBehaviour:
@@ -390,8 +390,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e35e4050368444b8b43b55bc46c68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  googlePlay_ID: 4001611
+  gameId: 4001611
   showAds: 1
+  ReviveButton: {fileID: 1582518765}
+  GameOverPanel: {fileID: 707117801}
+  myPlacementId: rewardedVideo
 --- !u!4 &208413291
 Transform:
   m_ObjectHideFlags: 0
@@ -995,10 +998,10 @@ RectTransform:
   m_Father: {fileID: 707117802}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 390.0437, y: -859}
-  m_SizeDelta: {x: 90.252625, y: 83.88956}
+  m_AnchorMin: {x: 0.33600003, y: 0.020354167}
+  m_AnchorMax: {x: 0.42662966, y: 0.086}
+  m_AnchoredPosition: {x: -1.2489929, y: -1.1800537}
+  m_SizeDelta: {x: -7.7473755, y: -44.110443}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &549155203
 MonoBehaviour:
@@ -1060,7 +1063,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &707117802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1690,7 +1693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42.448135, y: 0}
+  m_AnchoredPosition: {x: 35, y: 0}
   m_SizeDelta: {x: 282.8163, y: 119.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091111368
@@ -2274,10 +2277,10 @@ RectTransform:
   m_Father: {fileID: 707117802}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 307, y: -862}
-  m_SizeDelta: {x: 397.41553, y: 153.19208}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.9760001, y: 0.09062501}
+  m_AnchoredPosition: {x: 29.185791, y: 11}
+  m_SizeDelta: {x: -74.956085, y: -20.807922}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1480428095
 MonoBehaviour:
@@ -2849,6 +2852,7 @@ GameObject:
   - component: {fileID: 1582518766}
   - component: {fileID: 1582518765}
   - component: {fileID: 1582518764}
+  - component: {fileID: 1582518768}
   m_Layer: 5
   m_Name: ReviveButton
   m_TagString: Untagged
@@ -2933,18 +2937,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287904191}
-        m_TargetAssemblyTypeName: Wave_GameManager, Assembly-CSharp
-        m_MethodName: Revive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 208413290}
         m_TargetAssemblyTypeName: UnityAdsHandler, Assembly-CSharp
         m_MethodName: DisplayInteratialAds
@@ -2995,6 +2987,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582518762}
   m_CullTransparentMesh: 0
+--- !u!114 &1582518768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582518762}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e35e4050368444b8b43b55bc46c68f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameId: 4001611
+  showAds: 1
+  ReviveButton: {fileID: 1582518765}
+  GameOverPanel: {fileID: 707117801}
+  myPlacementId: rewardedVideo
 --- !u!1 &1675184339
 GameObject:
   m_ObjectHideFlags: 0
@@ -3467,39 +3476,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productId: com.lynxgamez.crystaldash.removeadsbutton
+  productId: 
   buttonType: 0
   consumePurchase: 1
   onPurchaseComplete:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 208413290}
-        m_TargetAssemblyTypeName: UnityAdsHandler, Assembly-CSharp
-        m_MethodName: OnPurchaseComplete
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onPurchaseFailed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 208413290}
-        m_TargetAssemblyTypeName: UnityAdsHandler, Assembly-CSharp
-        m_MethodName: OnPurchaseFailed
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}

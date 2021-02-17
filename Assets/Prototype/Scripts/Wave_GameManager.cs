@@ -222,12 +222,23 @@ public class Wave_GameManager : MonoBehaviour
         ///stetdss
     }
 
+
+    public void CheckAdsRevive()
+    {
+
+
+        //Actions on player to revice
+        GameOverPanel.SetActive(true);
+        
+
+
+    }
     public void Revive()
     {
 
-        
-        //Actions on player to revice
         GameOverPanel.SetActive(false);
+        //Actions on player to revice
+        //////GameOverPanel.SetActive(false);
         lastPlayerPos = playerGO.transform;
         ///FindObjectOfType<Wave_Player>().isDead = false;
         Time.timeScale = 1f;
