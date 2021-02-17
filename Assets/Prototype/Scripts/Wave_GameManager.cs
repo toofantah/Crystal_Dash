@@ -24,7 +24,7 @@ public class Wave_GameManager : MonoBehaviour
     public float secsToWaitAfterLoosingAlls;
     public float secsToWaitAfterLoosingToReplays;
     public GameObject ReviveButtonGO;
-    GameObject ReviveButtonSubTitleTextGO;
+    public GameObject ReviveButtonSubTitleTextGO;
     public GameObject GameOverPanel;
     public GameObject GameOverEffectPanel;
     public GameObject GameOverEffectRestartPanel;
@@ -34,8 +34,10 @@ public class Wave_GameManager : MonoBehaviour
     public GameObject touchToMoveTextObj;
     public GameObject readyReplayRevivesObj;
     public GameObject readyReplayRestartObj;
-
+    public int tempFirstScoreForAds;
+    public int tempScoreSession;
     public GameObject StartFadeInObj;
+
 
     public static Wave_GameManager GameManagerInstances;
     static int PlayCount;
@@ -46,7 +48,7 @@ public class Wave_GameManager : MonoBehaviour
     
     void Awake()
     {
-        
+
         /*if (GameManagerInstances)
         {
             DontDestroyOnLoad(this);
@@ -56,19 +58,30 @@ public class Wave_GameManager : MonoBehaviour
 
         */
 
+        
+        ///tempScoreSession = 0;
+        ///PlayerPrefs.SetInt("TempScoreSession", tempScoreSession);
 
-
-
+        
+        ReviveButtonSubTitleTextGO.SetActive(true);
 
         #region SETUP
-        ReviveButtonSubTitleTextGO = ReviveButtonGO.transform.GetChild(1).gameObject;
-
-        /*/PlayerPrefs.DeleteAll();*/
+        ReviveButtonSubTitleTextGO.SetActive(false);
+        
+        /*PlayerPrefs.DeleteAll();*/
         ThanksForPurchasingRemoveAdsPanelGO.SetActive(false);
         Application.targetFrameRate = 60;
         PlayerPrefs.GetInt("Lives", GlobalLives);
         
         LastScoreText.text = PlayerPrefs.GetInt("LastScore", score).ToString();
+
+        //ExtraControlForFirstSkipAdsUnderZeroews();
+        //ExtraControlForFirstSkipAdsUnderZeroews();
+        CheckAdsRemovePurchases();
+
+
+
+
         GlobalLives = MaxGlobalLives;
         Time.timeScale = 1.0f;
         CurrentScoreText.text = "0";
@@ -111,22 +124,44 @@ public class Wave_GameManager : MonoBehaviour
         if (score > PlayerPrefs.GetInt("BestScore", 0))
         {
             PlayerPrefs.SetInt("BestScore", score);
+            
+            PlayerPrefs.SetInt("LastScore", score);
             BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
+
+            
+
         }
     }
 
 
     public void Gameover()
     {
-        
+        PlayerPrefs.SetInt("LastScore", score);
+        PlayerPrefs.GetInt("LastScore", score);
+        ///ExtraControlForFirstSkipAdsUnderZeroews();
+        CheckAdsRemovePurchases();
+        Debug.Log(score);
+        // ExtraControlForFirstSkipAdsUnderZeroews();
+
+
+
+        tempScoreSession = score;
+        PlayerPrefs.SetInt("TempScoreSession", tempScoreSession);
+
         StartCoroutine(GameoverCoroutine());
         CheckGlobalLives();
+
+
+        
     }
 
 
     IEnumerator GameoverCoroutine()
     {
         PlayerPrefs.SetInt("LastScore", score);
+
+        //ExtraControlForFirstSkipAdsUnderZeroews();
+
         CheckAdsRemovePurchases();
         GameOverEffectPanel.SetActive(true);
         Time.timeScale = 0.1f;
@@ -144,12 +179,41 @@ public class Wave_GameManager : MonoBehaviour
 
     public void Restart()
     {
+        Debug.Log(PlayerPrefs.GetInt("GlobalLives", 0));
+        /*if (PlayerPrefs.GetInt("GlobalLives", 0) > 5)
+        {
+            GlobalLives = PlayerPrefs.GetInt("GlobalLives", 0);
+
+            
+            GlobalLives--;
+            PlayerPrefs.SetInt("Lives", GlobalLives);
+            ReviveButtonGO.SetActive(true);
+
+            LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
+
+            LivesScoreText.color = Color.grey;
+            return;
+        }
+        else
+        {
+            GlobalLives = PlayerPrefs.GetInt("GlobalLives", 0);
+            GlobalLives--;
+            PlayerPrefs.SetInt("Lives", MaxGlobalLives);
+            ReviveButtonGO.SetActive(true);
+
+            LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
+
+            LivesScoreText.color = Color.grey;
+        }
+        */
+
         //CheckGlobalLives();
         GameOverPanel.SetActive(false);
         ///ReviveScoreSetup();
         readyReplayRestartObj.SetActive(true);
         StopAllCoroutines();
-
+        
+        PlayerPrefs.SetInt("TempScoreSession", score);
         Time.timeScale = 0.3f;
         StartCoroutine(RestartAfterLosing(secsToWaitAfterLoosingAlls));
         //Some count down animations? 
@@ -161,7 +225,7 @@ public class Wave_GameManager : MonoBehaviour
     public void Revive()
     {
 
-        PlayerPrefs.SetInt("LastScore", score);
+        
         //Actions on player to revice
         GameOverPanel.SetActive(false);
         lastPlayerPos = playerGO.transform;
@@ -185,6 +249,7 @@ public class Wave_GameManager : MonoBehaviour
     {
         if(PlayerPrefs.GetInt("LastScore",score)>0)
         {
+            
             PlayerPrefs.GetInt("LastScore", score);
             
             //Set Score text true nd all actions about score 
@@ -205,19 +270,53 @@ public class Wave_GameManager : MonoBehaviour
     //Function check global lives
     public void CheckGlobalLives()
     {
-        if (GlobalLives <= 1)
+        /*if (PlayerPrefs.GetInt("GlobalLives",0) >5)
         {
-            
-            GlobalLives = 0;
-            PlayerPrefs.SetInt("Lives", GlobalLives);
-            ReviveButtonGO.SetActive(false);
-            LivesScoreText.color = Color.yellow;
-        }
-        else
-        {
+            GlobalLives = PlayerPrefs.GetInt("GlobalLives", 0);
+
+
             GlobalLives--;
             PlayerPrefs.SetInt("Lives", GlobalLives);
             ReviveButtonGO.SetActive(true);
+
+            LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
+
+            LivesScoreText.color = Color.grey;
+            return;
+        }*/
+        if (GlobalLives <= 1)
+        {
+            GlobalLives = PlayerPrefs.GetInt("Lives", 0);
+            GlobalLives--;
+            GlobalLives = 0;
+            PlayerPrefs.SetInt("Lives", GlobalLives);
+            ReviveButtonGO.SetActive(false);
+
+            LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
+
+            LivesScoreText.color = Color.yellow;
+        }
+        /*if (PlayerPrefs.GetInt("GlobalLives", 0) <= 0)
+        {
+            GlobalLives = PlayerPrefs.GetInt("GlobalLives", 0);
+            GlobalLives--;
+            GlobalLives = 0;
+            PlayerPrefs.SetInt("Lives", MaxGlobalLives);
+            ReviveButtonGO.SetActive(false);
+
+            LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
+
+            LivesScoreText.color = Color.yellow;
+        }*/
+        else
+        {
+             PlayerPrefs.SetInt("Lives", GlobalLives);
+            GlobalLives--;
+            PlayerPrefs.SetInt("Lives", GlobalLives);
+            ReviveButtonGO.SetActive(true);
+
+            LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
+
             LivesScoreText.color = Color.grey;
         }
         
@@ -280,14 +379,52 @@ public class Wave_GameManager : MonoBehaviour
             ReviveButtonSubTitleTextGO.SetActive(false);
             ReviveButtonSubTitleTextGO.GetComponent<Text>().alignment = (TextAnchor)TextAlignment.Center;
             RemoveAdsButtonsGO.SetActive(false);
-
+            FindObjectOfType<UnityAdsHandler>().showAds = false;
         }
         else 
             if(isAdsPurchased==0)
         {
-            ReviveButtonSubTitleTextGO.SetActive(true);
+            if(PlayerPrefs.GetInt("BestScore",0)<=5)
+            {
+
+                FindObjectOfType<UnityAdsHandler>().showAds = false; ;
+                //FindObjectOfType<UnityAdsHandler>().CheckShowAds();
+
+                ReviveButtonSubTitleTextGO.SetActive(false);
+
+                //REMOVES??? (LOOKS BEAUTIFUKK)S)set back to false to show also when loosing at first attempt?s>
+                RemoveAdsButtonsGO.SetActive(false);
+
+
+            }
+            else
+            if (PlayerPrefs.GetInt("BestScore", 0) <= 5    ||PlayerPrefs.GetInt("TempScoreSession", tempScoreSession) <= 1)
+            {
+
+                FindObjectOfType<UnityAdsHandler>().showAds = false; ;
+                //FindObjectOfType<UnityAdsHandler>().CheckShowAds();
+               
+                ReviveButtonSubTitleTextGO.SetActive(false);
+
+                //REMOVES??? (LOOKS BEAUTIFUKK)S)set back to false to show also when loosing at first attempt?s>
+                RemoveAdsButtonsGO.SetActive(false);
+
+
+            }
+            else
+            {
+                FindObjectOfType<UnityAdsHandler>().showAds = true; ;
+                ReviveButtonSubTitleTextGO.SetActive(true);
+                
+               
+                RemoveAdsButtonsGO.SetActive(true);
+            }
+
+
+
             
-            RemoveAdsButtonsGO.SetActive(true);
+
+           
         }
         
     }
@@ -296,5 +433,30 @@ public class Wave_GameManager : MonoBehaviour
     {
 
         ThanksForPurchasingRemoveAdsPanelGO.SetActive(true);
+    }
+
+//Extra function for ads:
+
+    public void ExtraControlForFirstSkipAdsUnderZeroews()
+    {
+        if (PlayerPrefs.GetInt("isAdsPurchased", 0) == 0)
+        {
+            if (PlayerPrefs.GetInt("LastScore", score) <= 4)
+            {
+
+                FindObjectOfType<UnityAdsHandler>().showAds = false; ;
+                //FindObjectOfType<UnityAdsHandler>().CheckShowAds();
+                ReviveButtonGO.transform.GetChild(1).gameObject.GetComponent<Text>().enabled=false;
+                Debug.Log(ReviveButtonSubTitleTextGO.activeSelf);
+            }
+            else
+            {
+                FindObjectOfType<UnityAdsHandler>().showAds = true;
+                //FindObjectOfType<UnityAdsHandler>().CheckShowAds();
+                ReviveButtonSubTitleTextGO.SetActive(true);
+            }
+        }
+
+
     }
 }

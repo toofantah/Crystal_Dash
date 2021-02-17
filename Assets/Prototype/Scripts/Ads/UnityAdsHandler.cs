@@ -10,7 +10,7 @@ public class UnityAdsHandler : MonoBehaviour
     [SerializeField] string googlePlay_ID="4001611";
     bool testMode = false;
 
-    bool showAds=true;
+    public bool showAds=true;
 
 
     public void Awake()
@@ -31,9 +31,19 @@ public class UnityAdsHandler : MonoBehaviour
     public void DisplayInteratialAds()
     {
         if (showAds)
-            Advertisement.Show();
+        {
+            if(PlayerPrefs.GetInt("LastScore", 0)>1)
+            {
+
+                Advertisement.Show();
+            }    
+        }    
+            
         else
-            return;    
+        {
+            return;
+        }    
+             
     }
     // Update is called once per frame
     void Update()
@@ -48,11 +58,13 @@ public class UnityAdsHandler : MonoBehaviour
         {
             PlayerPrefs.SetInt("isAdsPurchased", 1);
             Debug.Log("IAP purchased"+"+ 20 lives offer! :D, thank you for your purchases!");
-            GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives = GameObject.FindObjectOfType<Wave_GameManager>().MaxGlobalLives + 20;
+            GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives = GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives + 15;
             PlayerPrefs.SetInt("Lives", GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives);
             PlayerPrefs.SetInt("isAdsPurchased", 1);
             ///GameObject.FindObjectOfType<Wave_GameManager>().CheckGlobalLives();
-            GameObject.FindObjectOfType<Wave_GameManager>().CheckAdsRemovePurchases();
+
+           GameObject.FindObjectOfType<Wave_GameManager>().CheckAdsRemovePurchases(); 
+
             GameObject.FindObjectOfType<Wave_GameManager>().CheckThankYouForPurchasesRemovesAds();
             CheckShowAds();
             //GameObject.FindObjectOfType<Wave_GameManager>().isAdsPurchased = true;
@@ -68,7 +80,12 @@ public class UnityAdsHandler : MonoBehaviour
     
 
 
-
+    public void OnClickRefreshLivesOnPurchase()
+    {
+        PlayerPrefs.SetInt("Lives", GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives);
+        GameObject.FindObjectOfType<Wave_GameManager>().GlobalLives = PlayerPrefs.GetInt("Lives", 0);
+        GameObject.FindObjectOfType<Wave_GameManager>().CheckGlobalLives();
+    }
 
 
     public void CheckShowAds()
