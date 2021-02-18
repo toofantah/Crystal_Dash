@@ -20,7 +20,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
       [SerializeField]  private string gameId = "4001611";
 #endif*/
 
-    [SerializeField] private string gameId = "4001611";
+    [SerializeField] private string GooglePlays_ID = "4001611";
     bool testMode = false;
 
     public bool showAds=true;
@@ -28,6 +28,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
     public Button ReviveButton;
     public GameObject GameOverPanel;
     public string myPlacementId = "rewardedVideo";
+    
     public void Awake()
     {
         
@@ -49,7 +50,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
 
 
        
-        Advertisement.Initialize(gameId, testMode);
+        Advertisement.Initialize(GooglePlays_ID, testMode);
         
     }
      
@@ -61,7 +62,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
         {
             if(PlayerPrefs.GetInt("LastScore", 0)>1)
             {
-
+                
                 Advertisement.Show();
             }    
         }    
@@ -147,8 +148,11 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
     public void OnUnityAdsDidStart(string placementId)
     {
         ///throw new System.NotImplementedException();
+        FindObjectOfType<Wave_GameManager>(). ShowAdsWarningOverlayPauseForSkips(true);
+        
     }
 
+    
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
         // Define conditional logic for each ad completion status:
@@ -156,10 +160,13 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
         {
             // Reward the user for watching the ad to completion.
             FindObjectOfType<Wave_GameManager>().Revive();
+            FindObjectOfType<Wave_GameManager>().ShowAdsWarningOverlayPauseForSkips(false);
         }
         else if (showResult == ShowResult.Skipped)
         {
+
             FindObjectOfType<Wave_GameManager>().CheckAdsRevive();
+            FindObjectOfType<Wave_GameManager>().ShowAdsWarningOverlayPauseForSkips(true);
             // Do not reward the user for skipping the ad.
         }
         else if (showResult == ShowResult.Failed)

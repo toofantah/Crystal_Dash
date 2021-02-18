@@ -62,7 +62,7 @@ public class Wave_Player : MonoBehaviour
 
     void MovePlayer()
     {
-        Debug.Log("MovePlayers");
+        ///Debug.Log("MovePlayers");
         Vector2 pos = transform.position;
         pos.x = Mathf.Cos(angle) * (GameManagerObj.GetComponent<Wave_DisplayManager>().RIGHT * 0.9f);
         pos.y += 0.002f;

@@ -38,7 +38,7 @@ public class Wave_GameManager : MonoBehaviour
     public int tempScoreSession;
     public GameObject StartFadeInObj;
 
-
+    public GameObject SkipAdsWarningPanel;
     public static Wave_GameManager GameManagerInstances;
     static int PlayCount;
     
@@ -58,17 +58,21 @@ public class Wave_GameManager : MonoBehaviour
 
         */
 
-        
+
         ///tempScoreSession = 0;
         ///PlayerPrefs.SetInt("TempScoreSession", tempScoreSession);
 
-        
+        SkipAdsWarningPanel.SetActive(false);
+
+
+
+
         ReviveButtonSubTitleTextGO.SetActive(true);
 
         #region SETUP
         ReviveButtonSubTitleTextGO.SetActive(false);
         
-        /*PlayerPrefs.DeleteAll();*/
+        /*/////////PlayerPrefs.DeleteAll();*/
         ThanksForPurchasingRemoveAdsPanelGO.SetActive(false);
         Application.targetFrameRate = 60;
         PlayerPrefs.GetInt("Lives", GlobalLives);
@@ -306,6 +310,10 @@ public class Wave_GameManager : MonoBehaviour
             LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
 
             LivesScoreText.color = Color.yellow;
+
+
+            ////ADDED FOR UI TO SHOW FOR REMOVES ADS BUTTONS *BUG INTOS" (MAYBE R<TESTS AND REDS AND REMOVES+_)
+            RemoveAdsButtonsGO.SetActive(false);
         }
         /*if (PlayerPrefs.GetInt("GlobalLives", 0) <= 0)
         {
@@ -329,6 +337,9 @@ public class Wave_GameManager : MonoBehaviour
             LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
 
             LivesScoreText.color = Color.grey;
+
+            ////ADDED FOR UI TO SHOW FOR REMOVES ADS BUTTONS *BUG INTOS" (MAYBE R<TESTS AND REDS AND REMOVES+_)
+            RemoveAdsButtonsGO.SetActive(true);
         }
         
 
@@ -470,4 +481,11 @@ public class Wave_GameManager : MonoBehaviour
 
 
     }
+
+    public void ShowAdsWarningOverlayPauseForSkips(bool value)
+    {
+
+        SkipAdsWarningPanel.SetActive(value);
+    }
+
 }
