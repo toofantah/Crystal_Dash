@@ -43,7 +43,11 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
        // GameOverPanel.SetActive(false);
         ReviveButton = GameObject.Find("ReviveButton"). GetComponent<Button>();
         GameOverPanel.SetActive(false);
+        
+        
         ReviveButton.interactable = Advertisement.IsReady();
+       
+       
         if (ReviveButton) ReviveButton.onClick.AddListener(DisplayInteratialAds);
         Advertisement.AddListener(this);
 
@@ -62,7 +66,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
             if(PlayerPrefs.GetInt("LastScore", 0)>1)
             {
 
-                Advertisement.Show();
+                Advertisement.Show(myPlacementId);
             }    
         }    
             
@@ -126,6 +130,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
         }
         else if (Wave_GameManager.isAdsPurchased == 1)
         {
+            ReviveButton.interactable = true;
             showAds = false;
         }
     }
