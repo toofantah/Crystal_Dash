@@ -335,7 +335,7 @@ public class Wave_GameManager : MonoBehaviour
             ReviveButtonGO.SetActive(true);
 
             LivesScoreText.text = PlayerPrefs.GetInt("Lives", GlobalLives).ToString();
-
+             
             LivesScoreText.color = Color.grey;
 
             ////ADDED FOR UI TO SHOW FOR REMOVES ADS BUTTONS *BUG INTOS" (MAYBE R<TESTS AND REDS AND REMOVES+_)
