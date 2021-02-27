@@ -151,7 +151,8 @@ public class Wave_GameManager : MonoBehaviour
 
         tempScoreSession = score;
         PlayerPrefs.SetInt("TempScoreSession", tempScoreSession);
-
+        /*CheckAdsRemovePurchases();*/
+        RemoveAdsButtonsGO.SetActive(false);
         StartCoroutine(GameoverCoroutine());
         CheckGlobalLives();
 
@@ -313,7 +314,7 @@ public class Wave_GameManager : MonoBehaviour
 
 
             ////ADDED FOR UI TO SHOW FOR REMOVES ADS BUTTONS *BUG INTOS" (MAYBE R<TESTS AND REDS AND REMOVES+_)
-            RemoveAdsButtonsGO.SetActive(false);
+            
         }
         /*if (PlayerPrefs.GetInt("GlobalLives", 0) <= 0)
         {
@@ -339,7 +340,7 @@ public class Wave_GameManager : MonoBehaviour
             LivesScoreText.color = Color.grey;
 
             ////ADDED FOR UI TO SHOW FOR REMOVES ADS BUTTONS *BUG INTOS" (MAYBE R<TESTS AND REDS AND REMOVES+_)
-            RemoveAdsButtonsGO.SetActive(true);
+            
         }
         
 
@@ -406,7 +407,7 @@ public class Wave_GameManager : MonoBehaviour
         else 
             if(isAdsPurchased==0)
         {
-            if(PlayerPrefs.GetInt("BestScore",0)<=5)
+            if(PlayerPrefs.GetInt("TempScoreSession", 0)<=5)
             {
 
                 FindObjectOfType<UnityAdsHandler>().showAds = false; ;
@@ -420,7 +421,7 @@ public class Wave_GameManager : MonoBehaviour
 
             }
             else
-            if (PlayerPrefs.GetInt("BestScore", 0) <= 5    ||PlayerPrefs.GetInt("TempScoreSession", tempScoreSession) <= 1)
+            if (PlayerPrefs.GetInt("TempScoreSession", 0) <= 5    ||PlayerPrefs.GetInt("TempScoreSession", tempScoreSession) <= 1)
             {
 
                 FindObjectOfType<UnityAdsHandler>().showAds = false; ;

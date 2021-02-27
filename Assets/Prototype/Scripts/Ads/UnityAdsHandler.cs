@@ -41,7 +41,7 @@ public class UnityAdsHandler : MonoBehaviour, IUnityAdsListener
     void Start()
     {
        // GameOverPanel.SetActive(false);
-        ReviveButton = GameObject.Find("ReviveButton"). GetComponent<Button>();
+        //ReviveButton = GameObject.Find("ReviveButton"). GetComponent<Button>();
         GameOverPanel.SetActive(false);
         
         
